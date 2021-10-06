@@ -24,7 +24,6 @@ def save_plot(df, file_name, model):
     plt.axvline(x=0, color="black", linestyle="--", linewidth=1)
     figure = plt.gcf() # get current figure
     figure.set_size_inches(10, 8)
-
   def _plot_decision_regions(X, y, classfier, resolution=0.02):
     colors = ("red", "blue", "lightgreen", "gray", "cyan")
     cmap = ListedColormap(colors[: len(np.unique(y))])
@@ -43,7 +42,6 @@ def save_plot(df, file_name, model):
     plt.xlim(xx1.min(), xx1.max())
     plt.ylim(xx2.min(), xx2.max())
     plt.plot()
-
   X, y = prepare_data(df)
   _create_base_plot(df)
   _plot_decision_regions(X, y, model)
