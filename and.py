@@ -3,7 +3,7 @@ from utils.all_utils import prepare_data, save_model, save_plot
 import numpy as np
 import pandas as pd
 
-def main(data, eta, epochs, filename, plotFilename):
+def main(data, eta, epochs, modelname, plotFilename):
     
     df=pd.DataFrame(data)
     print(df)
@@ -14,10 +14,10 @@ def main(data, eta, epochs, filename, plotFilename):
 
     _= model.total_loss()
     
-    save_model(model,filename=filename)
+    save_model(model,filename=modelname)
     save_plot(df, plotFilename, model)
 
-if __name__=='__main()__':
+if __name__=='__main__':
     AND={
         "x1":[0,0,1,1],
         "x2":[0,1,0,1],
@@ -25,4 +25,4 @@ if __name__=='__main()__':
     }
     ETA=0.3 # Vary betweeen 0 and 1
     EPOCHS= 10
-    main(data=AND, eta=ETA, epochs=EPOCHS, filename="and.model", plotFilename="and.png")
+    main(data=AND, eta=ETA, epochs=EPOCHS, modelname="and.model", plotFilename="and.png")
