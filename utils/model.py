@@ -1,5 +1,8 @@
 import numpy as np
 import pandas as pd
+import logging
+from tqdm import tqdm
+
 
 class Perceptron:
 
@@ -7,7 +10,7 @@ class Perceptron:
   def __init__(self,eta,epochs): # eta = learning rate . This is basic initialization
     # weight initialization
     self.weights=np.random.randn(3)*1e-4 # Here weights are taken as 3 values since matrix required is 3x1 and these weights are starting from small values
-    print(f"initial weights before training:{self.weights}")
+    logging.info(f"initial weights before training:{self.weights}")
     # Learning rate initialization
     self.eta=eta
     # Epochs initialization
@@ -24,21 +27,21 @@ class Perceptron:
     self.y=y
     # X with bias is X matrix concatenated with -1 matrix
     X_with_bias=np.c_[self.X, -np.ones((len(self.X),1))] # here bias=-np.ones(len(self.X),1) is an array of -1 in the shape 4x1
-    print(f"X with bias:\n{X_with_bias}")
+    logging.info(f"X with bias:\n{X_with_bias}")
     # Creating loops for each epoch
-    for epoch in range(self.epochs):
-      print(f"for epoch:\n{epoch}")
-      print("--"*10)
+    for epoch in tqdm(range(self.epochs), total=self.epochs, desc="Training the model"):
+      logging.info(f"for epoch:\n{epoch}")
+      logging.info("--"*10)
       # Finding predicted output
       y_hat= self.activationFunction(X_with_bias, self.weights) # Forward propagation
-      print(f"Predicted value after forward pass:\n{y_hat}")
+      logging.info(f"Predicted value after forward pass:\n{y_hat}")
       # Calculating error 
       self.error= self.y - y_hat
-      print(f"error:\n{self.error}")
+      logging.info(f"error:\n{self.error}")
       #updating weights
       self.weights= self.weights + self.eta * np.dot(X_with_bias.T, self.error) # Backward Propagation
-      print(f"Updated weights after {epoch}/{self.epochs}:\n {self.weights}")
-      print("######"*10)
+      logging.info(f"Updated weights after {epoch}/{self.epochs}:\n {self.weights}")
+      logging.info("######"*10)
     
   # Predicting model using X
   def predict(self, X):
@@ -48,6 +51,6 @@ class Perceptron:
   # Function for calculating loss
   def total_loss(self):
     total_loss=np.sum(self.error)
-    print(f"total loss:\n{total_loss}")
+    logging.info(f"total loss:\n{total_loss}")
     return total_loss
   
